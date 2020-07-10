@@ -16,25 +16,7 @@ npm-debug.log*
 !.idea/codeStyles
 !.idea/inspectionProfiles
 !.idea/runConfigurations.ionic/
-.sourcemaps/
-.sass-cache/
-.tmp/
-.versions/
-coverage/
-www/
-node_modules/
-documentation/
-tmp/
-temp/
-platforms/
-plugins/
-plugins/android.json
-plugins/ios.json
-$RECYCLE.BIN/
 
-.DS_Store
-Thumbs.db
-UserInterfaceState.xcuserstate
 
 # Ignore Gradle project-specific cache directory
 .gradle

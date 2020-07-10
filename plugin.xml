@@ -15,6 +15,11 @@
     </config-file>
     <pods-config ios-min-version="10.0" use-frameworks="true"/>
     <pod id="SnapKit"/>
+    <pod id="Kingfisher"/>
+    <pod id="IQKeyboardManager"/>
+    <pod id="MBProgressHUD" version="1.1.0"/>
+    <pod id="TensorFlowLiteSwift"/>
+
     <!-- Add in the plugin .swift files here -->
     <source-file src="src/ios/helloSwift.swift"/>
     <!-- Add in the swift-support plugin by default -->

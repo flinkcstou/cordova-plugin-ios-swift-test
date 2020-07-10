@@ -4,7 +4,7 @@ var PLUGIN_NAME = "helloSwift"; // This is just for code completion uses.
 var helloSwift = function () {
 };
 
-YourPluginName.yourFunctionName = function (onSuccess, onError) {
+helloSwift.yourFunctionName = function (onSuccess, onError) {
   exec(onSuccess, onError, PLUGIN_NAME, "openCameraTest", []);
 };
 

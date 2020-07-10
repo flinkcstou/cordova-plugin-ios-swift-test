@@ -8,6 +8,10 @@
       "ios"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flinkcstou/cordova-plugin-ios-swift-test.git"
+  },
   "keywords": [
     "cordova",
     "camera",

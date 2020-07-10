@@ -12,9 +12,9 @@
       <feature name="helloSwift">
         <param name="ios-package" value="helloSwift"/>
       </feature>
-
     </config-file>
-
+    <pods-config ios-min-version="10.0" use-frameworks="true"/>
+    <pod id="SnapKit"/>
     <!-- Add in the plugin .swift files here -->
     <source-file src="src/ios/helloSwift.swift"/>
     <!-- Add in the swift-support plugin by default -->

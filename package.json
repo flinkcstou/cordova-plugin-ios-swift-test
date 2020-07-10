@@ -1,0 +1,19 @@
+{
+  "name": "cordova-plugin-ios-swift-test",
+  "version": "1.0.0",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-ios-swift-test",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "camera",
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "flinkcstou",
+  "license": "MIT"
+}

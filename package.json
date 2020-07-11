@@ -8,6 +8,7 @@
       "ios"
     ]
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/flinkcstou/cordova-plugin-ios-swift-test"

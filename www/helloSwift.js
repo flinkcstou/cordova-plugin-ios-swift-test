@@ -5,13 +5,7 @@ var helloSwift = function () {
 };
 
 helloSwift.openCameraTest = function (onSuccess, onError) {
-  var asd = {
-    y: 150,
-    x: 150,
-    width: 200,
-    height: 200,
-  };
-  exec(onSuccess, onError, PLUGIN_NAME, "openCameraTest", [asd]);
+  exec(onSuccess, onError, PLUGIN_NAME, "openCameraTest", [150, 150, 200, 200]);
 };
 
 helloSwift.startCamera = function (onSuccess, onError) {

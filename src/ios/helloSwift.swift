@@ -7,8 +7,8 @@
     var vc = RecordViewController(array: [100, 100, 200, 200])
 
 
-    @objc(openCameraTest:)
-    func openCameraTest(command: CDVInvokedUrlCommand) {
+    @objc(startCamera:)
+    func startCamera(command: CDVInvokedUrlCommand) {
 
         let variables: [Int] = command.arguments as! [Int]
         vc = RecordViewController(array: variables)
@@ -39,5 +39,11 @@
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsArrayBuffer: asd as Data);
             self!.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
         }
+    }
+
+    @objc(stopCamera:)
+    func stopCamera(command: CDVInvokedUrlCommand) {
+        vc.destroyCamera()
+        self.window = UIWindow(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
 }

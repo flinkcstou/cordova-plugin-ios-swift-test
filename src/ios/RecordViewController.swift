@@ -115,6 +115,14 @@ class RecordViewController: UIViewController {
             self.movieOutput.stopRecording()
         }
     }
+    func destroyCamera() -> Void {
+        if captureSession.isRunning {
+            DispatchQueue.global().async {
+                self.captureSession.stopRunning()
+//                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 

@@ -12,12 +12,12 @@ helloSwift.startCamera = function (onSuccess, onError) {
   exec(onSuccess, onError, PLUGIN_NAME, "startCamera", []);
 };
 
-helloSwift.recordVideo = function (onSuccess, onError) {
-  exec(onSuccess, onError, PLUGIN_NAME, "recordVideo", []);
+helloSwift.startRecordVideo = function (onSuccess, onError) {
+  exec(onSuccess, onError, PLUGIN_NAME, "startRecordVideo", []);
 };
 
-helloSwift.stopRecord = function (onSuccess, onError) {
-  exec(onSuccess, onError, PLUGIN_NAME, "recordVideo", []);
+helloSwift.stopRecordVideo = function (onSuccess, onError) {
+  exec(onSuccess, onError, PLUGIN_NAME, "stopRecordVideo", []);
 };
 
 helloSwift.test = function () {

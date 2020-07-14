@@ -4,8 +4,8 @@ var PLUGIN_NAME = "helloSwift"; // This is just for code completion uses.
 var helloSwift = function () {
 };
 
-helloSwift.startCamera = function (onSuccess, onError) {
-  exec(onSuccess, onError, PLUGIN_NAME, "startCamera", []);
+helloSwift.startCamera = function (onSuccess, onError, data) {
+  exec(onSuccess, onError, PLUGIN_NAME, "startCamera", data);
 };
 
 helloSwift.stopCamera = function (onSuccess, onError) {

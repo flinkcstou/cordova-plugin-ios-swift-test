@@ -23,7 +23,11 @@
 //        let vc = RecordViewController()
 //        window?.rootViewController = vc
 //        window?.makeKeyAndVisible()
-            
+
+        let callbackId:String = command.callbackId
+
+        var obj:AnyObject = command.arguments[0] as AnyObject!
+
         var window: UIWindow?
         window = UIWindow(frame: CGRect(x: 35, y: 35, width: 100, height: 100))
         AppCenter.shared.createWindow(window!)

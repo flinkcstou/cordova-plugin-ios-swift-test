@@ -15,11 +15,11 @@ class RecordViewController: UIViewController {
 
 
 
+    var array: [Int]?
     var captureSession = AVCaptureSession()
     var sessionOutput = AVCaptureStillImageOutput()
     var movieOutput = AVCaptureMovieFileOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
-
 
 
     // MARK: - Properties
@@ -31,6 +31,7 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupViews()
     }
     override func viewWillAppear(_ animated: Bool) {
         startCamera()
@@ -63,7 +64,7 @@ class RecordViewController: UIViewController {
 
                             previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
                             previewLayer.connection!.videoOrientation = AVCaptureVideoOrientation.portrait
-                            previewLayer.frame = CGRect(x: UIScreen.main.bounds.size.width * 0.4, y: UIScreen.main.bounds.size.height * 0.4, width: 100, height: 150)
+                            previewLayer.frame = CGRect(x: 0, y: 0, width: array![2], height: array![3])
 
                             cameraView.layer.addSublayer(previewLayer)
                         }
@@ -78,18 +79,23 @@ class RecordViewController: UIViewController {
     init(array: [Int]) {
         super.init(nibName: nil, bundle: nil)
 
-        view.addSubview(cameraView)
-        cameraView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(array[0])
-            make.top.equalToSuperview().offset(array[1])
-            make.width.equalTo(array[2])
-            make.height.equalTo(array[3])
-        }
+        self.array = array
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+
+    // MARK: - Setupviews
+    func setupViews() -> Void {
+        title = "Record Aix"
+        view.backgroundColor = .white
+
+        view.addSubview(cameraView)
+        cameraView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+    }
 
 
     // MARK: - Functions

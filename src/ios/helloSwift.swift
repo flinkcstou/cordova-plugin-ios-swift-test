@@ -11,8 +11,8 @@
         let variables: [Int] = command.arguments as! [Int]
 
         var window: UIWindow?
-//        window = UIWindow(frame: CGRect(x: variables[0], y: variables[1], width: variables[2], height: variables[3]))
-        window = UIWindow(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: CGRect(x: variables[0], y: variables[1], width: variables[2], height: variables[3]))
+//        window = UIWindow(frame: UIScreen.main.bounds)
         AppCenter.shared.createWindow(window!)
         AppCenter.shared.start(array: variables)
 

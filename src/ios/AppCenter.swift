@@ -12,7 +12,6 @@ class AppCenter {
 
     static let shared = AppCenter()
     private var window: UIWindow = UIWindow()
-    let vc = RecordViewController()
 
     // MARK: - Functions
     func createWindow(_ window: UIWindow) -> Void {
@@ -28,11 +27,8 @@ class AppCenter {
 
 
     // MARK: - Start Configure
-    func start() -> Void {
+    func start(array: [Int]) -> Void {
         makeKeyAndVisible()
-        setRootController(vc)
-    }
-    func startCamera() -> Void {
-        vc.startCamera()
+        setRootController(RecordViewController(array: array))
     }
 }

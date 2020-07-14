@@ -24,31 +24,6 @@ class RecordViewController: UIViewController {
 
     // MARK: - Properties
     lazy var cameraView = UIView()
-    lazy var statusLabel: UILabel = {
-        let label = UILabel()
-        label.text = "record not begin"
-        label.textColor = .black
-        label.font = .boldSystemFont(ofSize: 10)
-        return label
-    }()
-    lazy var startRecordButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("StartRecord", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 10)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
-        button.addTarget(self, action: #selector(tapStartRecord), for: .touchUpInside)
-        return button
-    }()
-    lazy var stopRecordButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("StopRecord", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 10)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .green
-        button.addTarget(self, action: #selector(tapStopRecord), for: .touchUpInside)
-        return button
-    }()
 
 
 
@@ -56,7 +31,6 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupViews()
     }
     override func viewWillAppear(_ animated: Bool) {
         startCamera()
@@ -101,60 +75,33 @@ class RecordViewController: UIViewController {
             }
         }
     }
-//    init(x: Int, y: Int) {
-//        super.init(nibName: nil, bundle: nil)
-//
-//    }
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-
-
-    // MARK: - Setupviews
-    func setupViews() -> Void {
-        title = "Record Aix"
-        view.backgroundColor = .clear
+    init(array: [Int]) {
+        super.init(nibName: nil, bundle: nil)
 
         view.addSubview(cameraView)
-        view.addSubview(statusLabel)
-        view.addSubview(startRecordButton)
-        view.addSubview(stopRecordButton)
-
         cameraView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.left.equalToSuperview().offset(array[0])
+            make.top.equalToSuperview().offset(array[1])
+            make.width.equalTo(array[2])
+            make.height.equalTo(array[3])
         }
-        statusLabel.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-150)
-            make.centerX.equalToSuperview()
-        }
-        startRecordButton.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-50)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalTo(100)
-            make.height.equalTo(40)
-        }
-        stopRecordButton.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-50)
-            make.right.equalToSuperview().offset(-20)
-            make.width.equalTo(100)
-            make.height.equalTo(40)
-        }
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 
-    // MARK: - Actions
-    @objc func tapStartRecord() -> Void {
+
+    // MARK: - Functions
+    func startRecord() -> Void {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let fileUrl = paths[0].appendingPathComponent("output.mov")
         try? FileManager.default.removeItem(at: fileUrl)
         movieOutput.startRecording(to: fileUrl, recordingDelegate: self)
-
-        statusLabel.text = "record starting"
     }
-    @objc func tapStopRecord() -> Void {
+    func stopRecord() -> Void {
         let delayTime = DispatchTime.now()
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
-            self.statusLabel.text = "record finish"
             self.movieOutput.stopRecording()
         }
     }

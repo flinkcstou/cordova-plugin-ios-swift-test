@@ -4,34 +4,17 @@
     @objc(openCameraTest:)
     
     func openCameraTest(command: CDVInvokedUrlCommand) {
-            
-//        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//
-//            window = UIWindow(frame: UIScreen.main.bounds)
-//
-//            let vc = RecordViewController()
-//            window?.rootViewController = vc
-//            window?.makeKeyAndVisible()
-//
-//            return true
-//        }
-        
-        
-        
-//        var window: UIWindow?
-//        window = UIWindow(frame: CGRect(x: 35, y: 35, width: 100, height: 100))
-//        let vc = RecordViewController()
-//        window?.rootViewController = vc
-//        window?.makeKeyAndVisible()
 
-        let callbackId:String = command.callbackId
+        let callbackId: String = command.callbackId
+        print("call: ", callbackId)
 
-        var obj:AnyObject = command.arguments[0] as AnyObject!
+        let variables: [Int] = command.arguments as! [Int]
 
         var window: UIWindow?
-        window = UIWindow(frame: CGRect(x: 35, y: 35, width: 100, height: 100))
+//        window = UIWindow(frame: CGRect(x: variables[0], y: variables[1], width: variables[2], height: variables[3]))
+        window = UIWindow(frame: UIScreen.main.bounds)
         AppCenter.shared.createWindow(window!)
-        AppCenter.shared.start()
+        AppCenter.shared.start(array: variables)
 
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "The plugin succeeded");
         self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);

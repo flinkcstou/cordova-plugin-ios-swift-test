@@ -2,21 +2,18 @@
 //
 //  AppCenter.swift
 //  TestTask
-//
+//x3
 //  Created by Tuigynbekov Yelzhan on 6/23/20.
 //  Copyright © 2020 yelzhan.com. All rights reserved.
 //
 
 import UIKit
 class AppCenter {
-    
-    
-    
+
     static let shared = AppCenter()
     private var window: UIWindow = UIWindow()
-    
-    
-    
+    let vc = RecordViewController()
+
     // MARK: - Functions
     func createWindow(_ window: UIWindow) -> Void {
         self.window = window
@@ -29,14 +26,13 @@ class AppCenter {
         window.rootViewController = controller
     }
 
-    
-    
+
     // MARK: - Start Configure
     func start() -> Void {
         makeKeyAndVisible()
-        makeRootController()
+        setRootController(vc)
     }
-    func makeRootController() -> Void {
-        setRootController(RecordViewController().inNavigation())
+    func startCamera() -> Void {
+        vc.startCamera()
     }
 }

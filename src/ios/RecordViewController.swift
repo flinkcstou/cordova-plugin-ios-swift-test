@@ -9,31 +9,32 @@
 import UIKit
 import Photos
 import AVFoundation
+import SnapKit
 
 class RecordViewController: UIViewController {
-    
-    
-    
+
+
+
     var captureSession = AVCaptureSession()
     var sessionOutput = AVCaptureStillImageOutput()
     var movieOutput = AVCaptureMovieFileOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
-    
-    
-    
+
+
+
     // MARK: - Properties
     lazy var cameraView = UIView()
     lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.text = "record not begin"
         label.textColor = .black
-        label.font = UIFont.init(name: Font.mullerRegular, size: 10)
+        label.font = .boldSystemFont(ofSize: 10)
         return label
     }()
     lazy var startRecordButton: UIButton = {
         let button = UIButton()
         button.setTitle("StartRecord", for: .normal)
-        button.titleLabel?.font = UIFont.init(name: Font.mullerRegular, size: 10)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 10)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .red
         button.addTarget(self, action: #selector(tapStartRecord), for: .touchUpInside)
@@ -42,31 +43,31 @@ class RecordViewController: UIViewController {
     lazy var stopRecordButton: UIButton = {
         let button = UIButton()
         button.setTitle("StopRecord", for: .normal)
-        button.titleLabel?.font = UIFont.init(name: Font.mullerRegular, size: 10)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 10)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .green
         button.addTarget(self, action: #selector(tapStopRecord), for: .touchUpInside)
         return button
     }()
-    
-    
-    
+
+
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupViews()
     }
     override func viewWillAppear(_ animated: Bool) {
         startCamera()
     }
-    
-    
-    
+
+
+
     // MARK: - Functions
     func startCamera() -> Void {
         self.cameraView = self.view
-        
+
         let devices = AVCaptureDevice.devices(for: AVMediaType.video)
         for device in devices {
             if (device as AnyObject).position == AVCaptureDevice.Position.front {
@@ -75,17 +76,21 @@ class RecordViewController: UIViewController {
 
                     if captureSession.canAddInput(input) {
                         captureSession.addInput(input)
-                        sessionOutput.outputSettings = [AVVideoCodecKey : AVVideoCodecType.jpeg]
+                        if #available(iOS 11.0, *) {
+                            sessionOutput.outputSettings = [AVVideoCodecKey : AVVideoCodecType.jpeg]
+                        } else {
+                            // Fallback on earlier versions
+                        }
 
                         if captureSession.canAddOutput(sessionOutput) {
 
                             captureSession.addOutput(sessionOutput)
                             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                    
+
                             previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
                             previewLayer.connection!.videoOrientation = AVCaptureVideoOrientation.portrait
                             previewLayer.frame = CGRect(x: UIScreen.main.bounds.size.width * 0.4, y: UIScreen.main.bounds.size.height * 0.4, width: 100, height: 150)
-                    
+
                             cameraView.layer.addSublayer(previewLayer)
                         }
                         captureSession.addOutput(movieOutput)
@@ -96,15 +101,25 @@ class RecordViewController: UIViewController {
             }
         }
     }
-    
-    
-    
+//    init(x: Int, y: Int) {
+//        super.init(nibName: nil, bundle: nil)
+//
+//    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+
+
     // MARK: - Setupviews
     func setupViews() -> Void {
         title = "Record Aix"
-        view.backgroundColor = .white
-        
-        view.addSubviews([cameraView, statusLabel, startRecordButton, stopRecordButton])
+        view.backgroundColor = .clear
+
+        view.addSubview(cameraView)
+        view.addSubview(statusLabel)
+        view.addSubview(startRecordButton)
+        view.addSubview(stopRecordButton)
+
         cameraView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -125,15 +140,15 @@ class RecordViewController: UIViewController {
             make.height.equalTo(40)
         }
     }
-    
-    
+
+
     // MARK: - Actions
     @objc func tapStartRecord() -> Void {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let fileUrl = paths[0].appendingPathComponent("output.mov")
         try? FileManager.default.removeItem(at: fileUrl)
         movieOutput.startRecording(to: fileUrl, recordingDelegate: self)
-        
+
         statusLabel.text = "record starting"
     }
     @objc func tapStopRecord() -> Void {
@@ -151,7 +166,7 @@ class RecordViewController: UIViewController {
 extension RecordViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         print("RECORD HERE:", outputFileURL)
-        
+
         PHPhotoLibrary.shared().performChanges({ PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL) }) { saved, error in
             if saved {
                 let alertController = UIAlertController(title: "Your video was successfully saved", message: nil, preferredStyle: .alert)

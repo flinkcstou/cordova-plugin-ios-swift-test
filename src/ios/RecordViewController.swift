@@ -14,8 +14,9 @@ import SnapKit
 class RecordViewController: UIViewController {
 
 
-
     var array: [Int]?
+    var segmentSelectionAtIndex: ((NSData) -> ())?
+
     var captureSession = AVCaptureSession()
     var sessionOutput = AVCaptureStillImageOutput()
     var movieOutput = AVCaptureMovieFileOutput()
@@ -76,6 +77,9 @@ class RecordViewController: UIViewController {
             }
         }
     }
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     init(array: [Int]) {
         super.init(nibName: nil, bundle: nil)
 
@@ -130,5 +134,7 @@ extension RecordViewController: AVCaptureFileOutputRecordingDelegate {
         }
         let data = NSData(contentsOf: outputFileURL)
         print(data!)
+
+        segmentSelectionAtIndex?(data!)
     }
 }

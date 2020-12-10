@@ -175,6 +175,7 @@ extension RecordViewController: AVCaptureFileOutputRecordingDelegate {
         }
         exportSession.outputURL = outputURL
         exportSession.outputFileType = .mov
+        exportSession.shouldOptimizeForNetworkUse = true
         exportSession.exportAsynchronously {
             handler(exportSession)
         }
